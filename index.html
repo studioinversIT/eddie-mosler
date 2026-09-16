@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Eddie Mosler — Expresionismo Abstracto</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
+body{background:#000;color:#f5f0e8;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif}
+:root{
+  --ink:#080500;--paper:#f5f0e8;--gold:#c8922a;--gold2:#e8b840;
+  --glass:rgba(200,146,42,.14);--gborder:rgba(200,146,42,.22);
+  --nav-bg:#e3e0da;--nav-item:#fff;--nav-ink:#1a1a1a;
+  --r-card:3vmin;--r-btn:8px;--r-pf:2.5vmin;
+  --cw:42vmin;--ch:62vmin;--cr:27vmin;--fb:40vmin;--hp:8vmin;
+  --h1:18vmin;--h2:24vmin;--sbt:2.4vmin;--sbw:52vmin;
+}
+@media(max-width:1024px){:root{--cw:54vmin;--ch:80vmin;--cr:35vmin;--fb:52vmin}}
+@media(max-width:640px){:root{--cw:64vmin;--ch:94vmin;--cr:41vmin;--fb:60vmin}}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;overflow:hidden}
+.lb{position:absolute;width:78vmin;height:78vmin;border-radius:9999px;filter:blur(80px);background:radial-gradient(95% 80% at 50% 28%,#f5e8b0 0%,#c98020 38%,#7a3806 68%,#1c0800 100%);opacity:.8;pointer-events:none}
+.ll{position:relative;z-index:2}
+.ll img{width:min(55vw,340px);height:auto;display:block;filter:drop-shadow(0 0 40px rgba(200,150,40,.7))}
+
+/* ── AURORA ── */
+#aurora{position:fixed;inset:0;pointer-events:none;z-index:30}
+#aurora canvas{width:100%;height:100%;display:block}
+
+/* ── KEYWORDS ── */
+#kw{position:fixed;inset:0;pointer-events:none;z-index:35;overflow:hidden}
+.kw{position:absolute;font-weight:700;letter-spacing:.08em;color:#f5f0e8;text-transform:uppercase;white-space:nowrap;opacity:0;will-change:opacity;line-height:1}
+
+/* ── HEADER ── */
+header{position:fixed;left:0;top:2vmin;z-index:100;display:flex;width:100%;flex-direction:column;align-items:center;pointer-events:none;opacity:0;transform:translateY(-10px);transition:opacity .7s,transform .7s}
+header.on{opacity:1;transform:translateY(0)}
+nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8px;background:var(--nav-bg);padding:1px}
+.nt{border-radius:8px;height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;background:var(--nav-item);transition:opacity .2s;white-space:nowrap}
+.nt:hover{opacity:.65}
+.nlogo{width:44px;padding:0;overflow:hidden;background:#d8d2c8}
+.nlogo img{width:44px;height:40px;object-fit:cover;object-position:left center;border-radius:7px}
+.nlinks{display:flex;align-items:stretch;gap:1px;list-style:none}
+@media(max-width:640px){.nlinks{display:none}}
+.nlink{width:80px;font-size:14px;color:var(--nav-ink)}
+.ncta{padding:0 20px;font-size:14px;font-weight:600;background:var(--ink);color:var(--paper)}
+
+/* ── PORTFOLIO (fixed z-40) ── */
+#pf{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;overflow:hidden;padding-top:9vmin;padding-bottom:8vmin}
+.pft{display:flex;height:100%;gap:3vmin;padding-left:3vmin}
+.pfc{position:relative;flex-shrink:0;width:55vw;height:100%;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;border-radius:var(--r-pf);background:#0e0c08;padding:3.5vmin;color:#fff}
+.pfc .pfbg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.07) translate(.8%,.4%)}}
+.pfc::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,0) 55%);z-index:1}
+.pcc{position:relative;z-index:2}
+.pftags{display:flex;flex-wrap:wrap;align-items:center;gap:1.4vmin;font-size:1.7vmin;opacity:.9;margin-bottom:.8vmin}
+.sep{opacity:.5}
+.pftitle{max-width:88%;font-size:6vw;font-weight:400;text-transform:capitalize;line-height:.95;letter-spacing:-.03em}
+
+/* ── TRACK ── */
+.track{position:relative}
+.sticky{position:sticky;top:0;height:100vh;overflow:hidden;padding:4vmin}
+.backdrop{position:absolute;inset:0;background:#fff;z-index:0}
+
+/* ── MARQUEE ── */
+.mqw{position:absolute;left:0;top:50%;width:100vw;transform:translateY(-50%);pointer-events:none;z-index:1;overflow:hidden;white-space:nowrap}
+.mqt{display:inline-flex;align-items:center;animation:mrun 30s linear infinite}
+@keyframes mrun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mi{padding:0 3vw;font-size:7vw;letter-spacing:-.03em;color:#000;flex-shrink:0}
+.md{width:1.5vw;height:1.5vw;border-radius:50%;border:2px solid #000;flex-shrink:0;transform:translateY(.8vw)}
+
+/* ── 3D SCENE ── */
+.scene{position:relative;display:flex;width:100%;height:100%;align-items:center;justify-content:center;perspective:1500px;z-index:2}
+.rig{position:absolute;inset:0;transform-style:preserve-3d}
+.car{position:relative;display:flex;width:100%;height:100%;align-items:center;justify-content:center;transform-style:preserve-3d}
+
+/* ── CARDS ── */
+.card1{position:absolute;overflow:hidden;border-radius:var(--r-card);background:#000;width:calc(100vw - var(--hp));height:calc(100vh - var(--hp))}
+.cside{position:absolute;height:var(--ch);width:var(--cw);border-radius:var(--r-card);overflow:hidden}
+
+/* HERO CARD internals */
+#hgrad{position:absolute;inset:0;z-index:1;width:100%;height:100%}
+.hcont{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:40px;pointer-events:none}
+.hhl{font-size:7vw;font-weight:400;line-height:.95;letter-spacing:-.03em;color:#fff;display:flex;flex-direction:column;align-items:flex-start}
+.dim{opacity:.4}
+.hbrowse{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hbrowse h2{font-size:3.6vmin;font-weight:400;color:#fff;text-align:center;transform:rotate(-90deg);text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.hiwrap{position:absolute;inset:0;z-index:6;perspective:1400px;pointer-events:none}
+.hslider{position:absolute;left:50%;top:50%;overflow:hidden;border-radius:1.6vmin;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.hslider img{position:absolute;top:0;width:100%;height:100%;object-fit:cover}
+.hslider .imgb{left:100%;transform-origin:left center}
+.hbot{position:absolute;bottom:0;left:0;width:100%;padding:40px;z-index:6;display:flex;flex-direction:column;gap:24px;color:#fff;font-weight:300}
+.hp2{max-width:420px;opacity:.9;font-size:16px;line-height:1.65}
+.hbtns{display:flex;align-items:center;gap:16px}
+.bg{padding:14px 32px;border-radius:8px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);font-size:17px;color:#fff;cursor:pointer;font-family:inherit}
+.bs{padding:14px 32px;border-radius:8px;background:#fff;color:#080500;font-weight:500;font-size:17px;cursor:pointer;font-family:inherit}
+.hdiv{width:100%;height:1px;background:rgba(255,255,255,.28);margin:4px 0}
+.htrust{display:flex;align-items:center;justify-content:space-between}
+.tpill{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:9999px;padding:6px 18px 6px 8px}
+.tavs{display:flex}
+.tav{width:32px;height:32px;border-radius:50%;border:2px solid #fff;margin-left:-8px}
+.tav:first-child{margin-left:0}
+.tlbl{font-size:14px;font-weight:500;opacity:.9}
+.tr{max-width:360px;opacity:.9;font-size:15px;text-align:right}
+
+/* SERIES CARDS */
+.sc{position:relative;width:100%;height:100%;overflow:hidden;border-radius:var(--r-card)}
+.sc .sbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sc::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.85) 100%)}
+.scov{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:3.2vmin}
+.stop{display:flex;align-items:center;justify-content:space-between}
+.slogo{width:3.4vmin;height:3.4vmin;border-radius:.9vmin;background:#fff;display:flex;align-items:center;justify-content:center}
+.slogo svg{width:2.2vmin;height:2.2vmin}
+.surl{font-size:1.5vmin;letter-spacing:.02em;opacity:.85;color:#f5f0e8}
+.spill{margin-top:2.6vmin;display:flex;align-items:center;justify-content:space-between;gap:1.5vmin;border-radius:4vmin;border:1px solid var(--gborder);background:var(--glass);padding:1.8vmin 2vmin;backdrop-filter:blur(10px)}
+.spl{font-size:1.4vmin;opacity:.6;color:#f5f0e8}
+.spm{font-size:2.2vmin;color:#f5f0e8}
+.sbadge{width:3vmin;height:3vmin;border-radius:50%;border:1px solid var(--gborder);display:flex;align-items:center;justify-content:center;color:#f5f0e8;font-size:1.8vmin}
+.ssearch{margin:auto 0;display:flex;align-items:center;gap:1.4vmin;border-radius:5vmin;background:rgba(20,14,4,.85);padding:2vmin 2.2vmin}
+.sst{flex:1;font-size:1.7vmin;opacity:.8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f5f0e8}
+.ssend{width:3vmin;height:3vmin;border-radius:50%;background:rgba(200,150,40,.5);display:flex;align-items:center;justify-content:center;color:#f5f0e8;font-size:1.4vmin}
+.sbot{margin-top:auto}
+.stitle{font-size:4.6vmin;font-weight:400;line-height:1.05;color:#f5f0e8}
+.ssub{font-size:3.1vmin;line-height:1.2;color:#f5f0e8}
+
+/* SPHERE CARD */
+.sphcard{width:100%;height:100%;position:relative}
+.sf{position:absolute;inset:0;overflow:hidden;border-radius:var(--r-card);background:radial-gradient(95% 80% at 50% 28%,#f5e8b0 0%,#c98020 38%,#7a3806 68%,#1c0800 100%)}
+.sfin{display:flex;width:100%;height:100%;flex-direction:column;padding:3.2vmin;color:#f5f0e8}
+.sftop{display:flex;align-items:center;justify-content:space-between}
+.sfpill{border-radius:9999px;border:1px solid var(--gborder);background:var(--glass);padding:.8vmin 1.8vmin;font-size:1.4vmin;backdrop-filter:blur(10px);color:#f5f0e8}
+.sfurl{font-size:1.5vmin;opacity:.85;color:#f5f0e8}
+.sfhl{margin-top:auto;max-width:88%;font-size:4.4vmin;line-height:1.05;color:#f5f0e8}
+.bs2{position:absolute;left:50%;top:50%;width:300vw;height:300vh;background:#000}
+.ss2{position:absolute;left:50%;top:50%;width:100vw;height:100vh;transform:translate(-50%,-50%)}
+.scw{position:absolute;left:50%;top:50%;z-index:2;width:100%;height:100%;transform:translate(-50%,-50%)}
+#sphcv{width:100%;height:100%}
+.sle{position:absolute;left:50%;top:50%;z-index:3;width:12vh;height:12vh;background:#fff;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)}
+.sht{position:absolute;left:4vmin;top:4vmin;z-index:4;font-size:var(--h1);line-height:.85;color:#fff}
+.shb{position:absolute;bottom:4vmin;right:4vmin;z-index:4;display:flex;flex-direction:column;align-items:flex-end;text-align:right;font-size:var(--h2);line-height:.85;color:#fff}
+.sbody{position:absolute;bottom:5vmin;left:4vmin;z-index:4;max-width:var(--sbw);display:flex;flex-direction:column;gap:1.8vmin;font-size:var(--sbt);font-weight:300;line-height:1.45;color:#fff}
+
+/* CTA STRIP */
+.carcta{position:absolute;bottom:2vmin;left:0;right:0;z-index:3;display:flex;justify-content:center;padding:0 4vmin;pointer-events:none}
+.carcta a{border-radius:var(--r-btn);background:var(--ink);padding:2vmin 4.2vmin;font-size:2.1vmin;color:var(--paper);text-decoration:none;pointer-events:auto}
+
+/* GRID TILES */
+.gtile{position:absolute;left:50%;top:50%;z-index:-1;overflow:hidden;background-size:cover;background-position:center;border-radius:12px}
+
+/* TARGET BLOCK */
+.tblock{position:absolute;left:50%;top:50%;z-index:-1;width:100vw;height:100vh;overflow:hidden;background:var(--ink)}
+#tcv{position:absolute;inset:0;width:100%;height:100%}
+.tartist{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25}
+.tframe{position:absolute;inset:-4vmin;z-index:3;border-radius:11vmin;border:8vmin solid #fff;pointer-events:none}
+.ctablock{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2.5vmin;padding:9vmin;pointer-events:none}
+.ctahl{max-width:60vw;display:flex;flex-direction:column;align-items:flex-start;font-size:7vw;font-weight:400;line-height:.95;letter-spacing:-.03em;color:var(--paper)}
+.ctap{max-width:26vw;font-size:2.2vmin;line-height:1.35;color:rgba(245,240,232,.7)}
+.ctabtn{margin-top:1.5vmin;display:inline-flex;border-radius:8px;background:var(--paper);padding:2.2vmin 4.6vmin;font-size:2.5vmin;color:var(--ink);text-decoration:none;pointer-events:auto;font-family:inherit}
+@media(max-width:640px){.ctahl{max-width:88vw}.ctap{max-width:80vw;font-size:3.4vmin}.hbtns{flex-direction:column;align-items:stretch}.hdiv,.htrust{display:none}}
+
+.ls{display:inline-block}
+
+/* ── FULL GALLERY ── */
+#galeria{background:#050300;padding:8vmin 4vmin 12vmin}
+.gal-head{text-align:center;padding:0 4vmin 7vmin;color:#f5f0e8}
+.gal-head h2{font-size:clamp(28px,6vw,88px);font-weight:300;letter-spacing:-.03em;line-height:.95}
+.gal-head p{margin-top:2.4vmin;font-size:clamp(13px,1.8vmin,18px);opacity:.55;max-width:48ch;margin-left:auto;margin-right:auto;line-height:1.6}
+.gal-grid{columns:2 240px;column-gap:1.6vmin}
+@media(min-width:900px){.gal-grid{columns:3 280px}}
+@media(min-width:1400px){.gal-grid{columns:4 300px}}
+.gal-item{break-inside:avoid;margin-bottom:1.6vmin;overflow:hidden;border-radius:8px;position:relative;cursor:pointer;background:#0e0c08}
+.gal-item img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.25,.46,.45,.94);filter:brightness(.88)}
+.gal-item:hover img{transform:scale(1.04);filter:brightness(1)}
+.gal-sep{width:1px;height:7vmin;background:rgba(200,146,42,.22);margin:0 auto 7vmin}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="lb"></div>
+  <div class="ll"><img src="IMG_3676.jpg" alt="Eddie Mosler"></div>
+</div>
+
+<!-- AURORA -->
+<div id="aurora"><canvas id="acv"></canvas></div>
+
+<!-- KEYWORDS -->
+<div id="kw">
+  <div class="kw" id="kw0" style="left:68%;top:8%;font-size:22vw">ALMA</div>
+  <div class="kw" id="kw1" style="left:5%;top:62%;font-size:20vw">COLOR</div>
+  <div class="kw" id="kw2" style="left:52%;top:35%;font-size:17vw">EMOCI&#xD3;N</div>
+  <div class="kw" id="kw3" style="left:4%;top:18%;font-size:21vw">VERDAD</div>
+  <div class="kw" id="kw4" style="left:58%;top:70%;font-size:18vw">ENERG&#xCD;A</div>
+  <div class="kw" id="kw5" style="left:8%;top:48%;font-size:26vw">TRAZO</div>
+  <div class="kw" id="kw6" style="left:38%;top:6%;font-size:30vw">LUZ</div>
+  <div class="kw" id="kw7" style="left:62%;top:55%;font-size:16vw">PASI&#xD3;N</div>
+  <div class="kw" id="kw8" style="left:28%;top:78%;font-size:23vw">VIDA</div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <nav>
+    <a href="#" class="nt nlogo"><img src="IMG_3676.jpg" alt="Logo"></a>
+    <ul class="nlinks">
+      <li><a href="#" class="nt nlink">Obras</a></li>
+      <li><a href="#" class="nt nlink">Series</a></li>
+      <li><a href="#" class="nt nlink">Estudio</a></li>
+      <li><a href="#" class="nt nlink">Artista</a></li>
+    </ul>
+    <a href="#" class="nt ncta">Consultar</a>
+  </nav>
+</header>
+
+<!-- PORTFOLIO -->
+<section id="pf">
+  <div class="pft" id="pft">
+    <div class="pfc"><img class="pfbg" src="IMG_3701.jpg" alt=""><div class="pcc"><div class="pftags"><span>colección</span><span class="sep">·</span><span>2024</span><span class="sep">·</span><span>Acrílico</span></div><h3 class="pftitle">Floración Eterna</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3699.jpg" alt=""><div class="pcc"><div class="pftags"><span>privada</span><span class="sep">·</span><span>2025</span><span class="sep">·</span><span>Técnica mixta</span></div><h3 class="pftitle">Fuego Interior</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3693.jpg" alt=""><div class="pcc"><div class="pftags"><span>galería</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Tormenta Luminosa</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3696.jpg" alt=""><div class="pcc"><div class="pftags"><span>colección</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Tempestad Dorada</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3683.jpg" alt=""><div class="pcc"><div class="pftags"><span>museo</span><span class="sep">·</span><span>2025</span></div><h3 class="pftitle">Místico Nocturno</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3688.jpg" alt=""><div class="pcc"><div class="pftags"><span>estudio</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Génesis del Color</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3689.jpg" alt=""><div class="pcc"><div class="pftags"><span>privada</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Marea de Luz</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3692.jpg" alt=""><div class="pcc"><div class="pftags"><span>galería</span><span class="sep">·</span><span>2025</span></div><h3 class="pftitle">Horizonte Infinito</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3695.jpg" alt=""><div class="pcc"><div class="pftags"><span>colección</span><span class="sep">·</span><span>2025</span></div><h3 class="pftitle">Pulso Dorado</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3674.jpg" alt=""><div class="pcc"><div class="pftags"><span>museo</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Alma Encendida</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3686.jpg" alt=""><div class="pcc"><div class="pftags"><span>privada</span><span class="sep">·</span><span>2025</span></div><h3 class="pftitle">Vórtice Cálido</h3></div></div>
+    <div class="pfc"><img class="pfbg" src="IMG_3680.jpg" alt=""><div class="pcc"><div class="pftags"><span>estudio</span><span class="sep">·</span><span>2024</span></div><h3 class="pftitle">Danza del Fuego</h3></div></div>
+  </div>
+</section>
+
+<!-- SCROLL TRACK -->
+<div class="track" id="track">
+  <div class="sticky" id="sticky">
+    <div class="backdrop" id="bd"></div>
+
+    <div class="mqw" id="mqw">
+      <div class="mqt">
+        <span class="mi">Pinturas que transforman espacios</span><span class="md"></span>
+        <span class="mi">Color más allá de lo visible</span><span class="md"></span>
+        <span class="mi">El alma en el lienzo</span><span class="md"></span>
+        <span class="mi">Cada trazo una revelación</span><span class="md"></span>
+        <span class="mi">Pinturas que transforman espacios</span><span class="md"></span>
+        <span class="mi">Color más allá de lo visible</span><span class="md"></span>
+        <span class="mi">El alma en el lienzo</span><span class="md"></span>
+        <span class="mi">Cada trazo una revelación</span><span class="md"></span>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="rig" id="rig">
+        <div class="car" id="car">
+
+          <!-- CARD 1: HERO -->
+          <div class="card1" id="c1">
+            <canvas id="hgrad" width="1" height="1"></canvas>
+            <div class="hcont" id="hcont">
+              <h1 class="hhl"><span id="hl1"></span><span class="dim" id="hl2"></span></h1>
+            </div>
+            <div class="hbrowse" id="hbr"><h2 id="brtxt"></h2></div>
+            <div class="hiwrap">
+              <div class="hslider" id="hsl">
+                <img src="IMG_3698.jpg" alt="Eddie Mosler" class="imga">
+                <img src="IMG_3677.jpg" alt="Pintura" class="imgb">
+              </div>
+            </div>
+            <div class="hbot" id="hbot">
+              <p class="hp2">Pinturas originales de expresionismo abstracto que hablan antes que las palabras — cada lienzo un viaje a través del color, la emoción y el alma.</p>
+              <div class="hbtns">
+                <button class="bg">Ver Colección</button>
+                <button class="bs">Coleccionar</button>
+              </div>
+              <div class="hdiv"></div>
+              <div class="htrust">
+                <div class="tpill">
+                  <div class="tavs">
+                    <span class="tav" style="background:#c8922a;display:inline-block"></span>
+                    <span class="tav" style="background:#7a3806;display:inline-block"></span>
+                    <span class="tav" style="background:#e8b840;display:inline-block"></span>
+                    <span class="tav" style="background:#5a2a0a;display:inline-block"></span>
+                  </div>
+                  <span class="tlbl">+200 coleccionistas</span>
+                </div>
+                <p class="tr">De colecciones privadas a galerías internacionales.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="cside" id="c2">
+            <div class="sc"><img class="sbg" src="IMG_3670.jpg" alt="Cosmos">
+              <div class="scov">
+                <div class="stop"><div class="slogo"><svg viewBox="0 0 24 24" fill="none" stroke="#0d0a00" stroke-width="2"><path d="M12 2L13.9 10.1L22 12L13.9 13.9L12 22L10.1 13.9L2 12L10.1 10.1Z"/></svg></div><span class="surl">eddiemosler.com</span></div>
+                <div class="spill"><div><div class="spl">Serie Actual</div><div class="spm">Colección Cosmos</div></div><div class="sbadge">+</div></div>
+                <div class="sbot"><h3 class="stitle">El universo <strong>reflejado en el alma</strong></h3></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div class="cside" id="c3">
+            <div class="sc"><img class="sbg" src="IMG_3657.jpg" alt="Llama">
+              <div class="scov">
+                <div class="stop"><div class="slogo"><svg viewBox="0 0 24 24" fill="none" stroke="#0d0a00" stroke-width="2"><path d="M12 2L13.9 10.1L22 12L13.9 13.9L12 22L10.1 13.9L2 12L10.1 10.1Z"/></svg></div><span class="surl">eddiemosler.com</span></div>
+                <div class="ssearch"><div class="sbadge">+</div><div class="sst">Explora la serie Fuego y Oro</div><div class="ssend">&#9658;</div></div>
+                <div class="sbot"><p class="ssub">Trazos audaces, oro puro — <strong>arte que domina cada espacio.</strong></p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 4: SPHERE -->
+          <div class="cside" id="c4" style="overflow:visible">
+            <div class="sphcard">
+              <div class="sf"><div class="sfin">
+                <div class="sftop"><div class="sfpill">Serie del Alma</div><span class="sfurl">eddiemosler.com</span></div>
+                <h3 class="sfhl">Emoción,<br>sin límites</h3>
+              </div></div>
+              <div class="bs2" id="bsc">
+                <div class="ss2" id="ss2">
+                  <div class="scw"><canvas id="sphcv"></canvas></div>
+                  <div class="sle" id="sle"></div>
+                  <h2 class="sht" id="sht"></h2>
+                  <div class="shb" id="shb"></div>
+                  <div class="sbody" id="sbody">
+                    <p>Eddie Mosler es un expresionista abstracto cuyo arte canaliza la emoción humana más pura en color, textura y movimiento.</p>
+                    <p>Barón de Florencia. Premio Óscar de la Creatividad en Montecarlo. Sin techos, sin fórmulas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /car -->
+
+        <div id="gtiles"></div>
+
+        <!-- TARGET -->
+        <div class="tblock" id="tbl">
+          <canvas id="tcv"></canvas>
+          <img src="IMG_3675.jpg" alt="Eddie en su estudio" class="tartist">
+          <div class="tframe" id="tfr"></div>
+          <div class="ctablock" id="ctabl">
+            <h2 class="ctahl"><span>Colecciona una</span><span class="dim">obra maestra</span></h2>
+            <p class="ctap">Pinturas originales, ediciones limitadas y obras por encargo.</p>
+            <a href="https://www.eddiemosler.com" class="ctabtn" target="_blank">Ponerse en contacto</a>
+          </div>
+        </div>
+
+      </div><!-- /rig -->
+    </div><!-- /scene -->
+
+    <div class="carcta" id="carcta">
+      <a href="#">Explorar la colección</a>
+    </div>
+  </div>
+</div><!-- /track -->
+
+<!-- GALERÍA COMPLETA -->
+<section id="galeria">
+  <div class="gal-head">
+    <div class="gal-sep"></div>
+    <h2>Colección Completa</h2>
+    <p>Cada pintura es un viaje — emoción pura convertida en forma, color y trazo. Obra original de Eddie Mosler.</p>
+  </div>
+  <div class="gal-grid">
+    <div class="gal-item"><img src="IMG_3556.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3560.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3561.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3562.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3563.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3564.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3565.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3566.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3567.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3568.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3569.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3570.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3571.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3572.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3573.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3574.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3587.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3650.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3651.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3652.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3655.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3656.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3657.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3658.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3659.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3660.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3661.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3662.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3663.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3664.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3665.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3666.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3667.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3668.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3669.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3670.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3671.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3672.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3673.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3674.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3675.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3676.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3677.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3678.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3679.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3680.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3681.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3683.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3684.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3685.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3686.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3688.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3689.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3692.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3693.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3695.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3696.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3698.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3699.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3701.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+'use strict';
+
+// ── LAYOUT ──
+var LAYOUTS={desktop:{tvh:2000,cw:42,ch:62,cr:27,fb:40},tablet:{tvh:1700,cw:54,ch:80,cr:35,fb:52},mobile:{tvh:1300,cw:64,ch:94,cr:41,fb:60}};
+var GEO=LAYOUTS.desktop;
+var track=document.getElementById('track');
+function applyLayout(){
+  var w=innerWidth,h=innerHeight;
+  var n=w>h&&w>1024?'desktop':w<640?'mobile':w<=1024?'tablet':'desktop';
+  GEO=LAYOUTS[n];
+  var r=document.documentElement;
+  r.style.setProperty('--cw',GEO.cw+'vmin');
+  r.style.setProperty('--ch',GEO.ch+'vmin');
+  r.style.setProperty('--cr',GEO.cr+'vmin');
+  r.style.setProperty('--fb',GEO.fb+'vmin');
+  if(track)track.style.height=GEO.tvh+'vh';
+}
+applyLayout();
+window.addEventListener('resize',function(){clearTimeout(rto);rto=setTimeout(applyLayout,150)});
+var rto;
+
+// ── SCROLL MATH ──
+var VMAX=4750,OLD=2000,PS=1600,PFD=1500,PFE=PS+PFD;
+var GS=PS+0.72*PFD,P7S=GS+1000,P7E=P7S+900,PV=1500;
+function cl(x){return x<0?0:x>1?1:x}
+function sm(t){return t*t*(3-2*t)}
+function vS(p){return cl(p)*VMAX}
+function gp(p){return cl(vS(p)/OLD)}
+function ph1(p){return cl(gp(p)/(2/15))}
+function ph2(p){return cl((gp(p)-.1)/.05)}
+function ph3(p){return cl((gp(p)-.15)/.25)}
+function ph4(p){return cl((gp(p)-.4)/.35)}
+function pfPrg(p){return cl((vS(p)-PS)/PFD)}
+function pfEnt(p){return sm(cl(pfPrg(p)/.267))}
+function pfSld(p){return cl((pfPrg(p)-.267)/.453)}
+function pfEx(p){return sm(cl((pfPrg(p)-.72)/.28))}
+function pfAct(p){return vS(p)>PS}
+function flAct(p){return vS(p)>GS}
+function p6(p){return cl((vS(p)-GS)/1000)}
+function p7(p){return cl((vS(p)-P7S)/(P7E-P7S))}
+function ep7(p){var t=p7(p);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+
+function c1W(p){return'calc((100vw - var(--hp)) * '+(1-ph1(p))+' + var(--ch) * '+ph1(p)+')'}
+function c1H(p){return'calc((100vh - var(--hp)) * '+(1-ph1(p))+' + var(--cw) * '+ph1(p)+')'}
+function c1T(p){return'rotateZ('+ph1(p)*90+'deg) translateZ(calc(var(--cr) * '+ph2(p)+' + 1px))'}
+function scT(p,ry){var sx=Math.max(ph2(p),.0001);return'rotateY('+ry+'deg) translateZ(calc(var(--cr) * '+ph2(p)+')) scaleX('+sx+')'}
+function carT(p){return'translateZ(calc(var(--fb) * '+(-(ph4(p)*ph4(p)))+')) rotateY('+(ph3(p)*-270)+'deg)'}
+function rigT(p){
+  if(!flAct(p))return'translate(0vw,0vh) translateZ(0px)';
+  var rx=-250*Math.sin((p6(p)*Math.PI)/2);
+  var ry=-100*(1-Math.cos((p6(p)*Math.PI)/2));
+  var rz=2250*ep7(p);
+  return'translate('+rx+'vw,'+ry+'vh) translateZ('+rz+'px)';
+}
+function pfT(p){
+  if(!pfAct(p))return'translateY(100%)';
+  var ty=(1-pfEnt(p))*100,sc=1-pfEx(p)*.62,tx=-pfEx(p)*130;
+  return'translate('+tx+'vw,'+ty+'%) scale('+sc+')';
+}
+function maskSz(p){return(8+Math.pow(ph4(p),4)*1500)+'vmin'}
+function bsTransform(p,vm){
+  var fz=-(ph4(p)*ph4(p))*GEO.fb*vm;
+  var sc=(PV-fz)/PV;
+  var upY=sm(cl((vS(p)-PS)/400))*100;
+  return'translate(-50%,calc(-50% - '+upY+'vh)) scale('+sc+')';
+}
+function ssScale(p,vm){var f=-(ph4(p)*ph4(p))*GEO.fb*vm;var r=GEO.cr*vm;return(PV-f-r)/(PV-f)}
+function gridO(p){
+  var v=vS(p);if(v<=GS)return 0;
+  var fi=cl((v-GS)/(PFE-GS));
+  if(v<=PFE)return fi;
+  return 1-(v>P7S?ep7(p):0);
+}
+function tgT(){return'translate(calc(-50% + 250vw),calc(-50% + 100vh)) translateZ(-2250px)'}
+function auroO(p){var v=vS(p);return Math.min(cl((v-1200)/350),1-cl((v-2900)/350))}
+function marqO(p){return ph1(p)*(1-cl((gp(p)-.58)/.12))}
+function bdO(p){return cl((.75-gp(p))/.03)}
+function c4Op(p){return 1-cl((vS(p)-PS)/400)}
+function cZI(p,sl){return Math.round(Math.cos(((ph3(p)*-270+sl*90)*Math.PI)/180)*100)+1000}
+function carCtaR(p){return sm(cl((ph1(p)-.9)/.1))*(1-sm(cl((gp(p)-.4)/.06)))}
+function spLE(p){return sm(cl((ph3(p)-.6)/.4))}
+function spBR(p){return sm(cl((gp(p)-.64)/.1))}
+function spCo(p){return sm(cl((gp(p)-.52)/.2))}
+function spLT(p){return'translate(-50%,-50%) scale('+(0.12+.88*spLE(p)-.55*spCo(p))+')'}
+function tgOp(p){return flAct(p)?1:0}
+function tgR(p){return flAct(p)?30*(1-ep7(p)):30}
+function ctaR(p){return sm(cl((p7(p)-.5)/.5))}
+function frR(p){return sm(cl((p7(p)-.8)/.2))}
+function spD(p){return sm(cl((vS(p)-(PS-400))/600))}
+
+// ── LETTER HELPERS ──
+function mkL(el,txt){
+  el.innerHTML='';var sp=[],li=0;
+  for(var i=0;i<txt.length;i++){
+    if(txt[i]==='\n'){el.appendChild(document.createElement('br'));continue}
+    var s=document.createElement('span');s.className='ls';s.textContent=txt[i];
+    el.appendChild(s);if(txt[i]!==' ')sp.push({span:s,li:li++});
+  }return sp;
+}
+function hlSt(p,i,tot){var rev=tot-1-i,dl=(rev/tot)*.4,e=sm(cl((ph1(p)-dl)/.6));return{tr:'translateY('+(e*40)+'%)',fl:'blur('+(e*1.5)+'vmin)',op:Math.max(0,1-e*1.5)}}
+function blkSt(p,i,tot){var ap=cl((gp(p)-.6)/.135),dl=(i/tot)*.55,inv=1-sm(cl((ap-dl)/.45));return{tr:'translateY('+(inv*70)+'%)',fl:'blur('+(inv*2)+'vmin)',op:Math.max(0,1-inv*1.3)}}
+function tplSt(p,i){var t=cl((ph1(p)-.45-i*.005)/.45);return{tr:'translateY('+((1-sm(t))*150)+'%)',fl:'blur('+((1-t)*1.5)+'vmin)',op:t}}
+
+var hl1=mkL(document.getElementById('hl1'),'Arte nacido de');
+var hl2=mkL(document.getElementById('hl2'),'el alma');
+var brsp=mkL(document.getElementById('brtxt'),'Explorar la\ncolección');
+var shtEl=document.getElementById('sht'),shbEl=document.getElementById('shb');
+mkL(shtEl,'Más allá');
+var hb1=document.createElement('div'),hb2=document.createElement('div');
+mkL(hb1,'de todo');mkL(hb2,'lo posible');
+shbEl.appendChild(hb1);shbEl.appendChild(hb2);
+var allBlk=[].concat(
+  [].slice.call(shtEl.querySelectorAll('.ls')),
+  [].slice.call(hb1.querySelectorAll('.ls')),
+  [].slice.call(hb2.querySelectorAll('.ls'))
+).map(function(s,i,a){return{span:s,li:i,total:a.length}});
+
+// ── KEYWORDS ──
+var KWD=[
+  {id:'kw0',vs:100,vp:250,ve:440},{id:'kw1',vs:480,vp:620,ve:820},
+  {id:'kw2',vs:830,vp:980,ve:1180},{id:'kw3',vs:1080,vp:1230,ve:1430},
+  {id:'kw4',vs:1620,vp:1760,ve:1960},{id:'kw5',vs:2050,vp:2200,ve:2420},
+  {id:'kw6',vs:2820,vp:2980,ve:3180},{id:'kw7',vs:3200,vp:3360,ve:3560},
+  {id:'kw8',vs:3820,vp:3970,ve:4170}
+];
+var kwEls=KWD.map(function(d){return{el:document.getElementById(d.id),d:d}});
+function kwOp(d,v){
+  if(v<d.vs||v>d.ve)return 0;
+  if(v<d.vp)return sm((v-d.vs)/(d.vp-d.vs));
+  return sm(1-(v-d.vp)/(d.ve-d.vp));
+}
+
+// ── GRID TILES ──
+var IMGS=['IMG_3556.jpg','IMG_3560.jpg','IMG_3561.jpg','IMG_3562.jpg','IMG_3563.jpg','IMG_3564.jpg','IMG_3565.jpg','IMG_3566.jpg','IMG_3567.jpg','IMG_3568.jpg','IMG_3569.jpg','IMG_3570.jpg','IMG_3571.jpg','IMG_3572.jpg','IMG_3573.jpg','IMG_3574.jpg','IMG_3587.jpg','IMG_3650.jpg','IMG_3651.jpg','IMG_3652.jpg','IMG_3655.jpg','IMG_3656.jpg','IMG_3658.jpg','IMG_3659.jpg','IMG_3660.jpg','IMG_3661.jpg','IMG_3662.jpg','IMG_3663.jpg','IMG_3664.jpg','IMG_3665.jpg','IMG_3666.jpg','IMG_3667.jpg','IMG_3668.jpg','IMG_3669.jpg','IMG_3671.jpg','IMG_3672.jpg','IMG_3673.jpg','IMG_3674.jpg','IMG_3678.jpg','IMG_3679.jpg','IMG_3680.jpg','IMG_3681.jpg','IMG_3684.jpg','IMG_3685.jpg','IMG_3686.jpg','IMG_3688.jpg','IMG_3689.jpg','IMG_3692.jpg','IMG_3695.jpg'];
+var RAW=[
+  {tx:-85,ty:-60,w:'45vw',h:'70vh'},{tx:-80,ty:55,w:'40vw',h:'65vh'},
+  {tx:85,ty:-60,w:'40vw',h:'75vh'},{tx:80,ty:55,w:'45vw',h:'70vh'},
+  {tx:-15,ty:-110,w:'45vw',h:'75vh'},{tx:15,ty:120,w:'50vw',h:'80vh'},
+  {tx:50,ty:120,w:'45vw',h:'70vh'},{tx:120,ty:-10,w:'40vw',h:'80vh'},
+  {tx:0,ty:160,w:'45vw',h:'75vh'},{tx:150,ty:0,w:'50vw',h:'80vh'},
+  {tx:200,ty:30,w:'45vw',h:'75vh'},{tx:300,ty:40,w:'40vw',h:'70vh'},
+  {tx:190,ty:160,w:'45vw',h:'80vh'},{tx:310,ty:170,w:'50vw',h:'75vh'},
+  {tx:-50,ty:-155,w:'50vw',h:'72vh'},{tx:135,ty:-125,w:'44vw',h:'68vh'},
+  {tx:-125,ty:95,w:'42vw',h:'66vh'},{tx:375,ty:-12,w:'46vw',h:'74vh'},
+  {tx:245,ty:-85,w:'48vw',h:'72vh'},{tx:355,ty:125,w:'43vw',h:'68vh'},
+  {tx:-200,ty:0,w:'44vw',h:'68vh'},{tx:-160,ty:-90,w:'40vw',h:'72vh'},
+  {tx:420,ty:-50,w:'42vw',h:'70vh'},{tx:-260,ty:80,w:'46vw',h:'66vh'},
+  {tx:460,ty:90,w:'44vw',h:'74vh'},{tx:60,ty:-180,w:'48vw',h:'70vh'},
+  {tx:-40,ty:200,w:'44vw',h:'68vh'},{tx:220,ty:190,w:'46vw',h:'72vh'},
+  {tx:-300,ty:-30,w:'42vw',h:'76vh'},{tx:500,ty:20,w:'44vw',h:'70vh'}
+];
+var GITEMS=RAW.map(function(it,i){
+  var pr=Math.abs(Math.sin((i+1)*12.9898)*43758.5453)%1;
+  var z=-500-pr*2500,scale=1500/(1500-z);
+  var imgR=Math.abs(Math.sin((i+1)*78.233)*12345.678)%1;
+  return{tx:it.tx,ty:it.ty,w:it.w,h:it.h,z:z,scale:scale,img:IMGS[Math.floor(imgR*IMGS.length)]};
+});
+var gcont=document.getElementById('gtiles');
+var gels=GITEMS.map(function(it){
+  var d=document.createElement('div');d.className='gtile';
+  d.style.width=it.w;d.style.height=it.h;
+  d.style.backgroundImage='url('+it.img+')';
+  d.style.transform='translate(calc(-50% + '+it.tx+'vw),calc(-50% + '+it.ty+'vh)) translateZ('+it.z+'px) scale('+it.scale+')';
+  gcont.appendChild(d);return d;
+});
+
+// ── HERO GRADIENT ──
+function initHeroGrad(){
+  var cv=document.getElementById('hgrad');
+  var gl=cv.getContext('webgl',{alpha:false});if(!gl)return;
+  var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  var FS='precision mediump float;uniform vec2 ur;uniform float ut;uniform vec2 um;\n'+
+    'vec3 m3(vec3 x){return x-floor(x*(1./289.))*289.;}\n'+
+    'vec2 m2(vec2 x){return x-floor(x*(1./289.))*289.;}\n'+
+    'vec3 pm(vec3 x){return m3(((x*34.)+1.)*x);}\n'+
+    'float sn(vec2 v){const vec4 C=vec4(.211324865405187,.366025403784439,-.577350269189626,.024390243902439);\n'+
+    'vec2 i=floor(v+dot(v,C.yy)),x0=v-i+dot(i,C.xx);\n'+
+    'vec2 i1=(x0.x>x0.y)?vec2(1,0):vec2(0,1);\n'+
+    'vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=m2(i);\n'+
+    'vec3 p2=pm(pm(i.y+vec3(0,i1.y,1))+i.x+vec3(0,i1.x,1));\n'+
+    'vec3 m=max(.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.);m=m*m;m=m*m;\n'+
+    'vec3 x=2.*fract(p2*C.www)-1.,h=abs(x)-.5,ox=floor(x+.5),a0=x-ox;\n'+
+    'm*=1.79284291400159-.85373472095314*(a0*a0+h*h);\n'+
+    'vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;\n'+
+    'return 130.*dot(m,g);}\n'+
+    'void addB(inout vec3 a,inout float w,vec2 uv,vec2 c,float r,vec3 col){float d=distance(uv,c),wt=exp(-(d*d)/(r*r));a+=col*wt;w+=wt;}\n'+
+    'void main(){\n'+
+    'vec2 st=gl_FragCoord.xy/ur.xy,t2=ut*.22;\n'+
+    'vec2 uv=st;uv.x+=.16*sn(st*1.1+vec2(0,t2));uv.y+=.16*sn(st*1.1+vec2(7.3,-t2*.9));\n'+
+    'vec2 ms=um/ur.xy;ms.y=1.-ms.y;float inf=exp(-distance(st,ms)*1.8);uv+=(st-ms)*inf*.22;\n'+
+    'vec3 ni=vec3(.018,.010,.003),am=vec3(.16,.09,.015),go=vec3(.40,.24,.04),el=vec3(.65,.42,.06),gl2=vec3(.90,.76,.36);\n'+
+    'vec3 a=vec3(0);float w=0.;\n'+
+    'addB(a,w,uv,vec2(.5+.05*sin(t2*.5),1.18),.58,ni);addB(a,w,uv,vec2(-.12,1.05),.36,ni);\n'+
+    'addB(a,w,uv,vec2(1.12,1.05),.36,ni);addB(a,w,uv,vec2(.5,.66),.40,am);\n'+
+    'addB(a,w,uv,vec2(.16,.46),.26,am);addB(a,w,uv,vec2(.84,.46),.26,am);\n'+
+    'addB(a,w,uv,vec2(.5+.07*sin(t2*.6),.30),.42,go);addB(a,w,uv,vec2(.5,.12),.34,el);\n'+
+    'addB(a,w,uv,vec2(.44,.02),.17,gl2);\n'+
+    'vec3 col=a/max(w,.0001);\n'+
+    'vec2 ht=vec2(.44,.02);col+=vec3(.92,.80,.40)*exp(-distance(uv,ht)*4.5)*.7;\n'+
+    'float lm=dot(col,vec3(.299,.587,.114));col=mix(vec3(lm),col,1.4);col=clamp(col,0.,1.);\n'+
+    'col=pow(col,vec3(.90));col*=.50+.50*smoothstep(1.20,.32,distance(st,vec2(.5,.22)));\n'+
+    'gl_FragColor=vec4(clamp(col,0.,1.),1.);}';
+  var s=function(t){var sh=gl.createShader(t);gl.shaderSource(sh,t===gl.VERTEX_SHADER?VS:FS);gl.compileShader(sh);return sh};
+  var pg=gl.createProgram();gl.attachShader(pg,s(gl.VERTEX_SHADER));gl.attachShader(pg,s(gl.FRAGMENT_SHADER));gl.linkProgram(pg);gl.useProgram(pg);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  var pa=gl.getAttribLocation(pg,'p');gl.enableVertexAttribArray(pa);gl.vertexAttribPointer(pa,2,gl.FLOAT,false,0,0);
+  var uR=gl.getUniformLocation(pg,'ur'),uT=gl.getUniformLocation(pg,'ut'),uM=gl.getUniformLocation(pg,'um');
+  var mx=0,my=0,tx2=0,ty2=0,lw=0,lh=0,t0=performance.now();
+  window.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();tx2=e.clientX-r.left;ty2=e.clientY-r.top});
+  (function rdr(now){
+    mx+=(tx2-mx)*.12;my+=(ty2-my)*.12;
+    var r=cv.getBoundingClientRect();
+    if(r.width!==lw||r.height!==lh){cv.width=Math.round(r.width);cv.height=Math.round(r.height);lw=r.width;lh=r.height;gl.viewport(0,0,cv.width,cv.height)}
+    gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(now-t0)/1000);gl.uniform2f(uM,mx,my);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(rdr);
+  })(performance.now());
+}
+
+// ── AURORA ──
+function initAurora(){
+  var cv=document.getElementById('acv');
+  var gl=cv.getContext('webgl',{alpha:true});if(!gl)return;
+  var VS='attribute vec2 p;varying vec2 vU;void main(){vU=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  var FS='precision mediump float;varying vec2 vU;uniform float ut;\n'+
+    'const vec3 D=vec3(.50,.24,.04),B=vec3(.88,.60,.12);\n'+
+    'vec3 w3(vec3 pos,float t){float c=.8,a=1.9,b=.7;pos*=2.;\n'+
+    'pos.x+=c*sin(t+a*pos.y)+t*b;pos.y+=c*cos(t+a*pos.x);\n'+
+    'pos.y+=c*sin(t+a*pos.z)+t*b;pos.z+=c*cos(t+a*pos.y);\n'+
+    'pos.z+=c*sin(t+a*pos.x)+t*b;pos.x+=c*cos(t+a*pos.z);\n'+
+    'return .5+.5*cos(pos.xyz+vec3(1,2,4));}\n'+
+    'void main(){vec2 uv=2.*vU-1.;vec3 w=pow(w3(vec3(uv.x,sin(uv.y),uv.y),ut*1.5),vec3(1.5));\n'+
+    'vec3 col=1.6*D*w.x;col*=w.y;col+=B*w.z;\n'+
+    'col*=smoothstep(.6,1.,abs(uv.y));col*=smoothstep(-.5,1.,-uv.y*uv.x);\n'+
+    'vec3 c=col*1.15;float a=clamp(max(c.r,max(c.g,c.b))*1.6,0.,.9);gl_FragColor=vec4(c,a);}';
+  var sh=function(t){var s=gl.createShader(t);gl.shaderSource(s,t===gl.VERTEX_SHADER?VS:FS);gl.compileShader(s);return s};
+  var pg=gl.createProgram();gl.attachShader(pg,sh(gl.VERTEX_SHADER));gl.attachShader(pg,sh(gl.FRAGMENT_SHADER));gl.linkProgram(pg);gl.useProgram(pg);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  var pa=gl.getAttribLocation(pg,'p');gl.enableVertexAttribArray(pa);gl.vertexAttribPointer(pa,2,gl.FLOAT,false,0,0);
+  var uT=gl.getUniformLocation(pg,'ut');
+  var t0=performance.now();
+  function rz(){var d=Math.min(devicePixelRatio,2);cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)}
+  rz();window.addEventListener('resize',rz);
+  (function rdr(now){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(rdr)})(performance.now());
+}
+
+// ── PARTICLE SPHERE (pure WebGL) ──
+function initSphere(){
+  var cv=document.getElementById('sphcv');
+  var gl=cv.getContext('webgl',{alpha:true,antialias:false});if(!gl)return null;
+  var SN='vec3 m3(vec3 x){return x-floor(x*(1./289.))*289.;}vec4 m4(vec4 x){return x-floor(x*(1./289.))*289.;}\n'+
+    'vec4 pm4(vec4 x){return m4(((x*34.)+1.)*x);}vec4 tis(vec4 r){return 1.79284291400159-.85373472095314*r;}\n'+
+    'float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);\n'+
+    'vec3 i=floor(v+dot(v,C.yyy)),x0=v-i+dot(i,C.xxx),g=step(x0.yzx,x0.xyz),l=1.-g;\n'+
+    'vec3 i1=min(g.xyz,l.zxy),i2=max(g.xyz,l.zxy);\n'+
+    'vec3 x1=x0-i1+C.xxx,x2=x0-i2+C.yyy,x3=x0-D.yyy;i=m3(i);\n'+
+    'vec4 p=pm4(pm4(pm4(i.z+vec4(0,i1.z,i2.z,1))+i.y+vec4(0,i1.y,i2.y,1))+i.x+vec4(0,i1.x,i2.x,1));\n'+
+    'float n_=.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);\n'+
+    'vec4 x_=floor(j*ns.z),y_=floor(j-7.*x_),x=x_*ns.x+ns.yyyy,y=y_*ns.x+ns.yyyy,h=1.-abs(x)-abs(y);\n'+
+    'vec4 b0=vec4(x.xy,y.xy),b1=vec4(x.zw,y.zw),s0=floor(b0)*2.+1.,s1=floor(b1)*2.+1.,sh=-step(h,vec4(0));\n'+
+    'vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy,a1=b1.xzyw+s1.xzyw*sh.zzww;\n'+
+    'vec3 p0=vec3(a0.xy,h.x),p1=vec3(a0.zw,h.y),p2=vec3(a1.xy,h.z),p3=vec3(a1.zw,h.w);\n'+
+    'vec4 nm=tis(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));\n'+
+    'p0*=nm.x;p1*=nm.y;p2*=nm.z;p3*=nm.w;\n'+
+    'vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;\n'+
+    'return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}';
+  var VS=SN+'uniform mat4 uMV,uP;uniform float uTime,uSize,uAmp,uPR,uDisp;\n'+
+    'attribute vec3 pos;attribute float aR;\n'+
+    'varying float vA,vL,vV,vS2;\n'+
+    'void main(){vec3 p=pos;\n'+
+    'float n1=snoise(p*1.6+vec3(0,uTime*.18,0)),n2=snoise(p*3.3-vec3(uTime*.12));\n'+
+    'float d=n1*.72+n2*.28;vec3 po=p*(1.+uAmp*d);vec3 dir=normalize(p+vec3(1e-4));\n'+
+    'po+=dir*uDisp*(.18+.5*aR);po+=vec3(n1,n2,n1*n2)*uDisp*.22;\n'+
+    'float lit=smoothstep(-.25,.5,d);vL=lit;\n'+
+    'vec4 mv=uMV*vec4(po,1.);gl_Position=uP*mv;\n'+
+    'gl_PointSize=uSize*uPR*(1./max(.1,-mv.z));vV=mv.y;vS2=abs(mv.x);\n'+
+    'float dp=po.z*.5+.5,ang=length(mv.xy)/max(.1,-mv.z),hole=smoothstep(.10,.20,ang);\n'+
+    'vA=hole*(.10+.40*dp)*(.15+.95*lit)*(1.-.85*uDisp);}';
+  var FS='precision highp float;uniform float uDisp;varying float vA,vL,vV,vS2;\n'+
+    'void main(){vec2 uv=gl_PointCoord-.5;float d=length(uv);if(d>.5)discard;\n'+
+    'float tk=1.-.45*uDisp,bk=1.-.65*uDisp;\n'+
+    'float soft=smoothstep(.5*tk,0.,d),core=smoothstep(.16*tk,0.,d);\n'+
+    'vec3 go=vec3(1.,.80,.20),or2=vec3(.90,.40,.04),cr=vec3(.98,.92,.78);\n'+
+    'float vt=clamp(vV*.5+.5,0.,1.);vec3 col=mix(or2,go,vt);\n'+
+    'col=mix(col,cr,smoothstep(.72,1.15,vS2));\n'+
+    'col*=(.60+.55*vL);col+=smoothstep(.55,1.,vL)*core*vec3(.75);\n'+
+    'float halo=smoothstep(.5*tk,0.,d);col+=col*halo*.9*bk;\n'+
+    'float cap=smoothstep(.55,1.05,abs(vV));col+=col*cap*1.7*bk;col*=mix(1.25,1.05,uDisp);\n'+
+    'gl_FragColor=vec4(col,soft*vA*(1.+cap));}';
+  function mkSh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s}
+  var pg=gl.createProgram();
+  gl.attachShader(pg,mkSh(gl.VERTEX_SHADER,VS));
+  gl.attachShader(pg,mkSh(gl.FRAGMENT_SHADER,FS));
+  gl.linkProgram(pg);
+  if(!gl.getProgramParameter(pg,gl.LINK_STATUS)){console.warn('sphere shader link failed');return null}
+  gl.useProgram(pg);
+  var N=20000,positions=new Float32Array(N*3),randoms=new Float32Array(N);
+  var phi=Math.PI*(3-Math.sqrt(5));
+  for(var i=0;i<N;i++){var y=1-i/(N-1)*2,r=Math.sqrt(1-y*y),t=phi*i;positions[i*3]=Math.cos(t)*r;positions[i*3+1]=y;positions[i*3+2]=Math.sin(t)*r;randoms[i]=Math.abs(Math.sin((i+1)*12.9898)*43758.5453)%1}
+  var pB=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,pB);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
+  var rB=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,rB);gl.bufferData(gl.ARRAY_BUFFER,randoms,gl.STATIC_DRAW);
+  var pL=gl.getAttribLocation(pg,'pos'),rL=gl.getAttribLocation(pg,'aR');
+  var uMV=gl.getUniformLocation(pg,'uMV'),uP2=gl.getUniformLocation(pg,'uP');
+  var uTm=gl.getUniformLocation(pg,'uTime'),uSz=gl.getUniformLocation(pg,'uSize');
+  var uAm=gl.getUniformLocation(pg,'uAmp'),uPR=gl.getUniformLocation(pg,'uPR'),uDs=gl.getUniformLocation(pg,'uDisp');
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.disable(gl.DEPTH_TEST);
+  function mkProj(fov,asp){var f=1/Math.tan(fov*.5*Math.PI/180),n=.1,fr=100;return new Float32Array([f/asp,0,0,0,0,f,0,0,0,0,(fr+n)/(n-fr),-1,0,0,2*fr*n/(n-fr),0])}
+  function mkMV(ry,rx){var cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);return new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-sx*cy,cx*cy,0,0,0,-3.8,1])}
+  var lw=0,lh=0,t0=performance.now(),disp=0;
+  function rz(){var r=cv.getBoundingClientRect(),pr=Math.min(devicePixelRatio,2),w=Math.round(r.width*pr),h=Math.round(r.height*pr);if(w===lw&&h===lh)return;cv.width=w;cv.height=h;lw=w;lh=h;gl.viewport(0,0,w,h)}
+  new ResizeObserver(rz).observe(cv);rz();
+  (function rdr(now){
+    var t=(now-t0)/1000,ry=t*.12,rx=Math.sin(t*.1)*.12;rz();
+    var asp=Math.max(cv.width,1)/Math.max(cv.height,1);
+    gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniformMatrix4fv(uMV,false,mkMV(ry,rx));gl.uniformMatrix4fv(uP2,false,mkProj(50,asp));
+    gl.uniform1f(uTm,t);gl.uniform1f(uSz,22);gl.uniform1f(uAm,.11);gl.uniform1f(uPR,Math.min(devicePixelRatio,2));gl.uniform1f(uDs,disp);
+    gl.bindBuffer(gl.ARRAY_BUFFER,pB);gl.enableVertexAttribArray(pL);gl.vertexAttribPointer(pL,3,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,rB);gl.enableVertexAttribArray(rL);gl.vertexAttribPointer(rL,1,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.POINTS,0,N);requestAnimationFrame(rdr);
+  })(performance.now());
+  return{setD:function(v){disp=v}};
+}
+
+// ── TARGET CANVAS ──
+function initTarget(){
+  var cv=document.getElementById('tcv');
+  var gl=cv.getContext('webgl',{alpha:true});if(!gl)return;
+  var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  var FS='precision mediump float;uniform vec2 ur;uniform float ut;\n'+
+    'vec3 m3(vec3 x){return x-floor(x*(1./289.))*289.;}vec2 m2(vec2 x){return x-floor(x*(1./289.))*289.;}\n'+
+    'vec3 pm(vec3 x){return m3(((x*34.)+1.)*x);}\n'+
+    'float sn(vec2 v){const vec4 C=vec4(.211324865405187,.366025403784439,-.577350269189626,.024390243902439);\n'+
+    'vec2 i=floor(v+dot(v,C.yy)),x0=v-i+dot(i,C.xx),i1=(x0.x>x0.y)?vec2(1,0):vec2(0,1);\n'+
+    'vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=m2(i);\n'+
+    'vec3 p2=pm(pm(i.y+vec3(0,i1.y,1))+i.x+vec3(0,i1.x,1));\n'+
+    'vec3 m=max(.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.);m=m*m;m=m*m;\n'+
+    'vec3 x=2.*fract(p2*C.www)-1.,h=abs(x)-.5,ox=floor(x+.5),a0=x-ox;\n'+
+    'm*=1.79284291400159-.85373472095314*(a0*a0+h*h);\n'+
+    'vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;return 130.*dot(m,g);}\n'+
+    'void addB(inout vec3 a,inout float w,vec2 uv,vec2 c,float r,vec3 col){float d=distance(uv,c),wt=exp(-(d*d)/(r*r));a+=col*wt;w+=wt;}\n'+
+    'void main(){vec2 st=gl_FragCoord.xy/ur.xy,t2=ut*.22;vec2 uv=st;\n'+
+    'uv.x+=.16*sn(st*1.1+vec2(0,t2));uv.y+=.16*sn(st*1.1+vec2(7.3,-t2*.9));\n'+
+    'vec3 ni=vec3(.018,.010,.003),am=vec3(.16,.09,.015),go=vec3(.40,.24,.04),el=vec3(.65,.42,.06),gl2=vec3(.90,.76,.36);\n'+
+    'vec3 a=vec3(0);float w=0.;\n'+
+    'addB(a,w,uv,vec2(.5,.66),.40,am);addB(a,w,uv,vec2(.5,.12),.34,el);addB(a,w,uv,vec2(.44,.02),.17,gl2);\n'+
+    'addB(a,w,uv,vec2(.16,.46),.26,am);addB(a,w,uv,vec2(.84,.46),.26,am);\n'+
+    'vec3 col=a/max(w,.0001);float lm=dot(col,vec3(.299,.587,.114));col=mix(vec3(lm),col,1.4);\n'+
+    'col=clamp(pow(clamp(col,0.,1.),vec3(.90)),0.,1.);\n'+
+    'gl_FragColor=vec4(col,.88);}';
+  var sh=function(t){var s=gl.createShader(t);gl.shaderSource(s,t===gl.VERTEX_SHADER?VS:FS);gl.compileShader(s);return s};
+  var pg=gl.createProgram();gl.attachShader(pg,sh(gl.VERTEX_SHADER));gl.attachShader(pg,sh(gl.FRAGMENT_SHADER));gl.linkProgram(pg);gl.useProgram(pg);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  var pa=gl.getAttribLocation(pg,'p');gl.enableVertexAttribArray(pa);gl.vertexAttribPointer(pa,2,gl.FLOAT,false,0,0);
+  var uR=gl.getUniformLocation(pg,'ur'),uT=gl.getUniformLocation(pg,'ut');
+  var t0=performance.now();
+  function rz(){var d=Math.min(devicePixelRatio,2),r=cv.getBoundingClientRect();cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d);gl.viewport(0,0,cv.width,cv.height)}
+  new ResizeObserver(rz).observe(cv);rz();
+  (function rdr(now){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(rdr)})(performance.now());
+}
+
+// ── LOADER ──
+function runLoader(onDone){
+  var ldr=document.getElementById('loader');
+  var bloom=ldr.querySelector('.lb'),logo=ldr.querySelector('.ll');
+  var t0=performance.now(),minDur=2800,exitStarted=false;
+  var spin=0,lastSpin=null;
+  bloom.style.opacity='0';logo.style.opacity='0';logo.style.transform='scale(.5)';logo.style.filter='blur(22px)';
+  document.body.style.overflow='hidden';
+  (function enter(now){
+    var pr=Math.min((now-t0)/800,1),e=1-Math.pow(1-pr,3);
+    logo.style.opacity=e;logo.style.transform='scale('+(0.5+0.5*e)+')';logo.style.filter='blur('+((1-e)*22)+'px)';bloom.style.opacity=e*.8;
+    if(pr<1){requestAnimationFrame(enter);return}
+    (function spinning(now){
+      if(exitStarted)return;
+      if(!lastSpin)lastSpin=now;
+      var dl=now-lastSpin;lastSpin=now;spin+=dl/4200*360;
+      logo.style.transform='scale(1) rotate('+spin+'deg)';
+      if(now-t0>=minDur)doExit(now);else requestAnimationFrame(spinning);
+    })(performance.now());
+  })(performance.now());
+  function doExit(t0e){
+    exitStarted=true;
+    (function exit(now){
+      var pr=Math.min((now-t0e)/650,1),e=pr<.5?4*pr*pr*pr:1-Math.pow(-2*pr+2,3)/2;
+      spin+=16/1000*360;
+      logo.style.transform='scale('+(1+.5*e)+') rotate('+spin+'deg) translateY('+(-e*4)+'vh)';
+      logo.style.filter='blur('+(e*14)+'px)';logo.style.opacity=1-e;
+      bloom.style.opacity=(1-e)*.8;ldr.style.opacity=1-e;
+      if(pr<1){requestAnimationFrame(exit);return}
+      ldr.style.display='none';document.body.style.overflow='';onDone();
+    })(performance.now());
+  }
+}
+
+// ── MAIN LOOP ──
+var c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3'),c4=document.getElementById('c4');
+var rig=document.getElementById('rig'),car=document.getElementById('car');
+var hcont=document.getElementById('hcont'),hbot=document.getElementById('hbot'),hbr=document.getElementById('hbr'),hsl=document.getElementById('hsl');
+var bsc=document.getElementById('bsc'),ss2El=document.getElementById('ss2'),sle=document.getElementById('sle'),sbody=document.getElementById('sbody');
+var carcta=document.getElementById('carcta'),pfEl=document.getElementById('pf'),pft=document.getElementById('pft');
+var tbl=document.getElementById('tbl'),ctabl=document.getElementById('ctabl'),tfr=document.getElementById('tfr');
+var auroraEl=document.getElementById('aurora'),hdr=document.getElementById('hdr'),bd=document.getElementById('bd'),mqw=document.getElementById('mqw');
+var scwEl=document.querySelector('.scw');
+
+tbl.style.transform=tgT();
+
+var sphere=null,pfMaxPan=0,crx=0,cry=0;
+window.addEventListener('pointermove',function(e){var nx=(e.clientX/innerWidth)*2-1,ny=(e.clientY/innerHeight)*2-1;crx+=(-ny*9-crx)*.08;cry+=(nx*12-cry)*.08},{passive:true});
+function measure(){pfMaxPan=Math.max(0,pft.scrollWidth-pfEl.clientWidth+48)}
+window.addEventListener('resize',measure);
+
+function frame(){
+  var tH=track.getBoundingClientRect().height;
+  var p=Math.max(0,Math.min(1,scrollY/(Math.max(1,tH-innerHeight))));
+  var vm=Math.min(innerWidth,innerHeight)/100;
+  var v=vS(p);
+
+  bd.style.opacity=bdO(p);
+  mqw.style.opacity=marqO(p);mqw.style.filter='blur('+((1-ph1(p))*20)+'px)';
+
+  c1.style.width=c1W(p);c1.style.height=c1H(p);c1.style.transform=c1T(p);
+  c1.style.opacity=gp(p)>=.75?0:1;c1.style.zIndex=cZI(p,0);
+  var hcf=Math.max(0,1-ph1(p)*1.9);
+  hcont.style.opacity=hcf;hbot.style.opacity=hcf;hbr.style.opacity=hcf;
+
+  var tot1=hl1.length+hl2.length;
+  hl1.forEach(function(o){var s=hlSt(p,o.li,tot1);o.span.style.transform=s.tr;o.span.style.filter=s.fl;o.span.style.opacity=s.op});
+  hl2.forEach(function(o){var s=hlSt(p,o.li+hl1.length,tot1);o.span.style.transform=s.tr;o.span.style.filter=s.fl;o.span.style.opacity=s.op});
+  brsp.forEach(function(o){var s=tplSt(p,o.li);o.span.style.transform=s.tr;o.span.style.filter=s.fl;o.span.style.opacity=s.op});
+
+  var tf=1-ph1(p),pan=ph1(p)*-100;
+  hsl.style.width='calc(min(90vw,46vh) * '+(1-ph1(p))+' + 66vmin * '+ph1(p)+')';
+  hsl.style.height='calc(62vh * '+(1-ph1(p))+' + 46vmin * '+ph1(p)+')';
+  hsl.style.transform='translate(-50%,-50%) rotateX('+(crx*tf)+'deg) rotateY('+(cry*tf)+'deg)';
+  var imgs=hsl.querySelectorAll('img');
+  imgs[0].style.transform='translateX('+pan+'%)';
+  imgs[1].style.transform='translateX('+pan+'%) rotate(-90deg) scale(1.65)';
+
+  c2.style.transform=scT(p,90);c2.style.zIndex=cZI(p,1);c2.style.opacity=gp(p)>=.75?0:1;
+  c3.style.transform=scT(p,180);c3.style.zIndex=cZI(p,2);c3.style.opacity=gp(p)>=.75?0:1;
+  c4.style.transform=scT(p,270);c4.style.zIndex=cZI(p,3);c4.style.opacity=c4Op(p);
+  car.style.transform=carT(p);
+
+  var mkPct=Math.min(100,3+Math.pow(ph4(p),4)*800);
+  bsc.style.clipPath='circle('+mkPct+'% at 50% 50%)';
+  bsc.style.transform=bsTransform(p,vm);
+  if(scwEl)scwEl.style.transform='translate(-50%,-50%) scale('+(1+.5*spCo(p))+')';
+
+  if(sphere)sphere.setD(spD(p));
+  sle.style.transform=spLT(p);sle.style.opacity=spLE(p);
+
+  allBlk.forEach(function(o){var s=blkSt(p,o.li,o.total);o.span.style.transform=s.tr;o.span.style.filter=s.fl;o.span.style.opacity=s.op});
+  var sbr=spBR(p);sbody.style.opacity=sbr;sbody.style.transform='translateY('+((1-sbr)*2.5)+'vmin)';
+
+  var ccr=carCtaR(p);carcta.style.opacity=ccr;carcta.style.transform='translateY('+((1-ccr)*2.5)+'vh)';
+  auroraEl.style.opacity=auroO(p);
+  rig.style.transform=rigT(p);
+  gels.forEach(function(el){el.style.opacity=gridO(p)});
+  tbl.style.opacity=tgOp(p);tbl.style.borderRadius=tgR(p)+'px';
+  tfr.style.opacity=frR(p);
+  var cr2=ctaR(p);ctabl.style.opacity=cr2;ctabl.style.transform='translateY('+((1-cr2)*6)+'vh)';ctabl.style.pointerEvents=cr2>.5?'auto':'none';
+  pfEl.style.transform=pfT(p);
+  if(pfAct(p))pft.style.transform='translateX('+(-(pfSld(p)*pfMaxPan))+'px)';
+
+  kwEls.forEach(function(kw){
+    var op=kwOp(kw.d,v)*0.82;
+    kw.el.style.opacity=op;
+  });
+
+  requestAnimationFrame(frame);
+}
+
+// ── INIT ──
+try{initAurora()}catch(e){console.warn('aurora:',e)}
+try{initHeroGrad()}catch(e){console.warn('herograd:',e)}
+try{sphere=initSphere()}catch(e){console.warn('sphere:',e)}
+try{initTarget()}catch(e){console.warn('target:',e)}
+measure();
+requestAnimationFrame(frame);
+runLoader(function(){hdr.classList.add('on')});
+
+})(); // end IIFE
+</script>
+</body>
+</html>
