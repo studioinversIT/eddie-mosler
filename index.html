@@ -61,7 +61,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 
 /* ── TRACK ── */
 .track{position:relative}
-.sticky{position:sticky;top:0;height:100vh;overflow:hidden;padding:4vmin;will-change:transform;transform:translateZ(0)}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;padding:4vmin;will-change:transform;transform:translateZ(0)}
 .backdrop{position:absolute;inset:0;background:#fff;z-index:0}
 
 /* ── MARQUEE ── */
@@ -446,19 +446,33 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 var LAYOUTS={desktop:{tvh:2000,cw:42,ch:62,cr:27,fb:40},tablet:{tvh:1700,cw:54,ch:80,cr:35,fb:52},mobile:{tvh:1300,cw:64,ch:94,cr:41,fb:60}};
 var GEO=LAYOUTS.desktop;
 var track=document.getElementById('track');
+// Capture viewport height once — iOS address bar hide/show changes innerHeight which
+// causes vh-based track height to change mid-scroll, resetting p back to an earlier
+// value (looks like a page reload). Fix: pin everything to a fixed pixel height.
+var FIXED_IH=document.documentElement.clientHeight||window.innerHeight;
+var LAST_W=window.innerWidth;
+var stickyEl=document.querySelector('.sticky');
 function applyLayout(){
-  var w=innerWidth,h=innerHeight;
-  var n=w>h&&w>1024?'desktop':w<640?'mobile':w<=1024?'tablet':'desktop';
+  var w=innerWidth;
+  var n=w>FIXED_IH&&w>1024?'desktop':w<640?'mobile':w<=1024?'tablet':'desktop';
   GEO=LAYOUTS[n];
   var r=document.documentElement;
   r.style.setProperty('--cw',GEO.cw+'vmin');
   r.style.setProperty('--ch',GEO.ch+'vmin');
   r.style.setProperty('--cr',GEO.cr+'vmin');
   r.style.setProperty('--fb',GEO.fb+'vmin');
-  if(track)track.style.height=GEO.tvh+'vh';
+  if(track)track.style.height=(GEO.tvh/100*FIXED_IH)+'px';
+  if(stickyEl)stickyEl.style.height=FIXED_IH+'px';
 }
 applyLayout();
-window.addEventListener('resize',function(){clearTimeout(rto);rto=setTimeout(applyLayout,150)});
+// Only relayout on real resize (width change = rotation), not address-bar show/hide
+window.addEventListener('resize',function(){
+  if(Math.abs(innerWidth-LAST_W)>20){
+    LAST_W=innerWidth;
+    FIXED_IH=document.documentElement.clientHeight||window.innerHeight;
+    clearTimeout(rto);rto=setTimeout(applyLayout,150);
+  }
+});
 var rto;
 
 // ── SCROLL MATH ──
@@ -853,8 +867,8 @@ window.addEventListener('resize',measure);
 
 function frame(){
   var tH=track.getBoundingClientRect().height;
-  var p=Math.max(0,Math.min(1,scrollY/(Math.max(1,tH-innerHeight))));
-  var vm=Math.min(innerWidth,innerHeight)/100;
+  var p=Math.max(0,Math.min(1,scrollY/(Math.max(1,tH-FIXED_IH))));
+  var vm=Math.min(innerWidth,FIXED_IH)/100;
   var v=vS(p);
 
   bd.style.opacity=bdO(p);
