@@ -207,6 +207,9 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 .gal-item img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.25,.46,.45,.94);filter:brightness(.88)}
 .gal-item:hover img{transform:scale(1.04);filter:brightness(1)}
 .gal-artist{outline:1.5px solid rgba(200,146,42,.25)}
+.gal-caption{position:absolute;bottom:0;left:0;right:0;padding:28px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.72));font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#c8922a;font-size:clamp(11px,1.4vmin,14px);letter-spacing:.04em;text-align:center;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.gal-item:hover .gal-caption{opacity:1}
+@media(max-width:640px){.gal-caption{opacity:1}}
 .gal-sep{width:1px;height:7vmin;background:rgba(200,146,42,.22);margin:0 auto 7vmin}
 </style>
 </head>
@@ -398,36 +401,36 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
     <p>Cada pintura es un viaje — emoción pura convertida en forma, color y trazo. Obra original de Eddie Mosler.</p>
   </div>
   <div class="gal-grid">
-    <div class="gal-item"><img src="IMG_3655.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3656.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3657.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3658.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3659.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3655.jpg" alt="Astral Enigma" loading="lazy"><div class="gal-caption">Astral Enigma</div></div>
+    <div class="gal-item"><img src="IMG_3656.jpg" alt="Essential Auric Connection" loading="lazy"><div class="gal-caption">Essential Auric Connection</div></div>
+    <div class="gal-item"><img src="IMG_3657.jpg" alt="Dimensional Frequency" loading="lazy"><div class="gal-caption">Dimensional Frequency</div></div>
+    <div class="gal-item"><img src="IMG_3658.jpg" alt="Pink Alchemy" loading="lazy"><div class="gal-caption">Pink Alchemy</div></div>
+    <div class="gal-item"><img src="IMG_3659.jpg" alt="Transmutation of the Universal Power" loading="lazy"><div class="gal-caption">Transmutation of the Universal Power</div></div>
     <div class="gal-item gal-artist"><img src="IMG_3674.jpg" alt="Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3660.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3661.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3662.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3663.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3664.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3660.jpg" alt="Vibrational Subtlety" loading="lazy"><div class="gal-caption">Vibrational Subtlety</div></div>
+    <div class="gal-item"><img src="IMG_3661.jpg" alt="Intuitive Universe" loading="lazy"><div class="gal-caption">Intuitive Universe</div></div>
+    <div class="gal-item"><img src="IMG_3662.jpg" alt="Temple of Color" loading="lazy"><div class="gal-caption">Temple of Color</div></div>
+    <div class="gal-item"><img src="IMG_3663.jpg" alt="Internal Exploration" loading="lazy"><div class="gal-caption">Internal Exploration</div></div>
+    <div class="gal-item"><img src="IMG_3664.jpg" alt="Eternal Transmutation" loading="lazy"><div class="gal-caption">Eternal Transmutation</div></div>
     <div class="gal-item gal-artist"><img src="IMG_3679.jpg" alt="Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3665.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3666.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3667.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3668.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3669.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3665.jpg" alt="Dimensional Hierarchy" loading="lazy"><div class="gal-caption">Dimensional Hierarchy</div></div>
+    <div class="gal-item"><img src="IMG_3666.jpg" alt="Radiance Truth" loading="lazy"><div class="gal-caption">Radiance Truth</div></div>
+    <div class="gal-item"><img src="IMG_3667.jpg" alt="Pillars of Creation" loading="lazy"><div class="gal-caption">Pillars of Creation</div></div>
+    <div class="gal-item"><img src="IMG_3668.jpg" alt="Heartbeat of the Cosmos" loading="lazy"><div class="gal-caption">Heartbeat of the Cosmos</div></div>
+    <div class="gal-item"><img src="IMG_3669.jpg" alt="Universal Expansion" loading="lazy"><div class="gal-caption">Universal Expansion</div></div>
     <div class="gal-item gal-artist"><img src="IMG_3688.jpg" alt="Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3670.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3671.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3672.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3673.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3676.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3670.jpg" alt="Custody of the Cosmic Silver" loading="lazy"><div class="gal-caption">Custody of the Cosmic Silver</div></div>
+    <div class="gal-item"><img src="IMG_3671.jpg" alt="Illumination Nebula" loading="lazy"><div class="gal-caption">Illumination Nebula</div></div>
+    <div class="gal-item"><img src="IMG_3672.jpg" alt="Cosmic Revelation" loading="lazy"><div class="gal-caption">Cosmic Revelation</div></div>
+    <div class="gal-item"><img src="IMG_3673.jpg" alt="Galactic Custody" loading="lazy"><div class="gal-caption">Galactic Custody</div></div>
+    <div class="gal-item"><img src="IMG_3676.jpg" alt="Universal Golden Creation" loading="lazy"><div class="gal-caption">Universal Golden Creation</div></div>
     <div class="gal-item gal-artist"><img src="IMG_3689.jpg" alt="Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3677.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3678.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3680.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3684.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3685.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
-    <div class="gal-item"><img src="IMG_3686.jpg" alt="Obra Eddie Mosler" loading="lazy"></div>
+    <div class="gal-item"><img src="IMG_3677.jpg" alt="Celestial Fragments" loading="lazy"><div class="gal-caption">Celestial Fragments</div></div>
+    <div class="gal-item"><img src="IMG_3678.jpg" alt="Chromatic Portal" loading="lazy"><div class="gal-caption">Chromatic Portal</div></div>
+    <div class="gal-item"><img src="IMG_3680.jpg" alt="Luminous Ascension" loading="lazy"><div class="gal-caption">Luminous Ascension</div></div>
+    <div class="gal-item"><img src="IMG_3684.jpg" alt="Sacred Geometry" loading="lazy"><div class="gal-caption">Sacred Geometry</div></div>
+    <div class="gal-item"><img src="IMG_3685.jpg" alt="Ethereal Resonance" loading="lazy"><div class="gal-caption">Ethereal Resonance</div></div>
+    <div class="gal-item"><img src="IMG_3686.jpg" alt="Cosmic Alchemy" loading="lazy"><div class="gal-caption">Cosmic Alchemy</div></div>
     <div class="gal-item gal-artist"><img src="IMG_3698.jpg" alt="Eddie Mosler" loading="lazy"></div>
   </div>
 </section>
