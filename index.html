@@ -349,12 +349,6 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
                 <div class="ss2" id="ss2">
                   <div class="scw"><canvas id="sphcv"></canvas></div>
                   <div class="sle" id="sle"></div>
-                  <h2 class="sht" id="sht"></h2>
-                  <div class="shb" id="shb"></div>
-                  <div class="sbody" id="sbody">
-                    <p>Eddie Mosler es un expresionista abstracto cuyo arte canaliza la emoción humana más pura en color, textura y movimiento.</p>
-                    <p>Barón de Florencia. Premio Óscar de la Creatividad en Montecarlo. Sin techos, sin fórmulas.</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -378,6 +372,16 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 
       </div><!-- /rig -->
     </div><!-- /scene -->
+
+    <!-- SPHERE TEXT LAYER — outside scaled container, direct viewport coords -->
+    <div style="position:absolute;inset:0;z-index:10;pointer-events:none;overflow:hidden">
+      <h2 class="sht" id="sht"></h2>
+      <div class="shb" id="shb"></div>
+      <div class="sbody" id="sbody">
+        <p>Eddie Mosler es un expresionista abstracto cuyo arte canaliza la emoción humana más pura en color, textura y movimiento.</p>
+        <p>Barón de Florencia. Premio Óscar de la Creatividad en Montecarlo. Sin techos, sin fórmulas.</p>
+      </div>
+    </div>
 
     <div class="carcta" id="carcta">
       <a href="#">Explorar la colección</a>
