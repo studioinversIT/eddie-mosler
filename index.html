@@ -877,7 +877,7 @@ function frame(){
 
   c1.style.width=c1W(p);c1.style.height=c1H(p);c1.style.transform=c1T(p);
   c1.style.opacity=gp(p)>=.75?0:1;c1.style.zIndex=cZI(p,0);
-  var hcf=Math.max(0,1-cl(gp(p)/0.65));
+  var hcf=Math.max(0,1-ph1(p)*1.9);
   hcont.style.opacity=hcf;hbot.style.opacity=hcf;hbr.style.opacity=hcf;
 
   var tot1=hl1.length+hl2.length;
