@@ -78,6 +78,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 
 /* ── CARDS ── */
 .card1{position:absolute;overflow:hidden;border-radius:var(--r-card);background:#000;width:calc(100vw - var(--hp));height:calc(100vh - var(--hp))}
+.card1::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.52) 0%,rgba(0,0,0,.08) 38%,rgba(0,0,0,.08) 55%,rgba(0,0,0,.68) 100%)}
 .cside{position:absolute;height:var(--ch);width:var(--cw);border-radius:var(--r-card);overflow:hidden}
 
 /* HERO CARD internals */
@@ -290,7 +291,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 
           <!-- CARD 1: HERO -->
           <div class="card1" id="c1">
-            <img src="IMG_3685.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.35) saturate(1.1)" alt="">
+            <img src="IMG_3685.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.05) saturate(1.1)" alt="">
             <canvas id="hgrad" width="1" height="1" style="display:none"></canvas>
             <div class="hcont" id="hcont">
               <h1 class="hhl"><span id="hl1"></span><span class="dim" id="hl2"></span></h1>
