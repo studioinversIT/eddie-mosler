@@ -6,7 +6,7 @@
 <title>Eddie Mosler — Expresionismo Abstracto</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+html,body{scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
 body{background:#000;color:#f5f0e8;overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif}
 :root{
@@ -61,7 +61,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 
 /* ── TRACK ── */
 .track{position:relative}
-.sticky{position:sticky;top:0;height:100vh;overflow:hidden;padding:4vmin}
+.sticky{position:sticky;top:0;height:100vh;overflow:hidden;padding:4vmin;will-change:transform;transform:translateZ(0)}
 .backdrop{position:absolute;inset:0;background:#fff;z-index:0}
 
 /* ── MARQUEE ── */
@@ -188,15 +188,18 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
   .carcta a{font-size:clamp(13px,3.8vw,15px);padding:3vmin 6vmin}
   .ctabtn{font-size:clamp(14px,4vw,16px);padding:3.5vmin 7vmin}
   /* Gallery */
-  #galeria{padding:10vw 4vw 14vw}
-  .gal-grid{columns:1 100%}
-  .gal-item{margin-bottom:3vw}
+  #galeria{padding:10vw 0 14vw}
+  .gal-head{padding:0 5vw 7vmin}
+  .gal-grid{display:flex;flex-direction:column;gap:2px;columns:unset;column-gap:unset}
+  .gal-item{break-inside:unset;margin-bottom:0;border-radius:0;width:100%}
+  .gal-item img{width:100%;height:auto;display:block}
+  .gal-caption{opacity:1;font-size:clamp(12px,4vw,15px)}
 }
 
 .ls{display:inline-block;white-space:pre}
 
 /* ── FULL GALLERY ── */
-#galeria{background:#050300;padding:8vmin 4vmin 12vmin}
+#galeria{background:#050300;padding:8vmin 4vmin 12vmin;contain:layout}
 .gal-head{text-align:center;padding:0 4vmin 7vmin;color:#f5f0e8}
 .gal-head h2{font-size:clamp(28px,6vw,88px);font-weight:300;letter-spacing:-.03em;line-height:.95}
 .gal-head p{margin-top:2.4vmin;font-size:clamp(13px,1.8vmin,18px);opacity:.55;max-width:48ch;margin-left:auto;margin-right:auto;line-height:1.6}
@@ -240,14 +243,14 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 <!-- HEADER -->
 <header id="hdr">
   <nav>
-    <a href="#" class="nt nlogo"><img src="logo.png" alt="Logo"></a>
+    <a href="javascript:;" class="nt nlogo"><img src="logo.png" alt="Logo"></a>
     <ul class="nlinks">
-      <li><a href="#" class="nt nlink">Obras</a></li>
-      <li><a href="#" class="nt nlink">Series</a></li>
-      <li><a href="#" class="nt nlink">Estudio</a></li>
-      <li><a href="#" class="nt nlink">Artista</a></li>
+      <li><a href="#galeria" class="nt nlink">Obras</a></li>
+      <li><a href="#galeria" class="nt nlink">Series</a></li>
+      <li><a href="javascript:;" class="nt nlink">Estudio</a></li>
+      <li><a href="javascript:;" class="nt nlink">Artista</a></li>
     </ul>
-    <a href="#" class="nt ncta">Consultar</a>
+    <a href="https://www.eddiemosler.com" target="_blank" class="nt ncta">Consultar</a>
   </nav>
 </header>
 
@@ -388,7 +391,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
     </div>
 
     <div class="carcta" id="carcta">
-      <a href="#">Explorar la colección</a>
+      <a href="#galeria">Explorar la colección</a>
     </div>
   </div>
 </div><!-- /track -->
