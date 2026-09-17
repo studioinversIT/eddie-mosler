@@ -264,7 +264,6 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
             <div class="hiwrap">
               <div class="hslider" id="hsl">
                 <img src="IMG_3698.jpg" alt="Eddie Mosler" class="imga">
-                <img src="IMG_3677.jpg" alt="Pintura" class="imgb">
               </div>
             </div>
             <div class="hbot" id="hbot">
@@ -847,7 +846,7 @@ function frame(){
   hsl.style.transform='translate(-50%,-50%) rotateX('+(crx*tf)+'deg) rotateY('+(cry*tf)+'deg)';
   var imgs=hsl.querySelectorAll('img');
   imgs[0].style.transform='translateX('+pan+'%)';
-  imgs[1].style.transform='translateX('+pan+'%) rotate(-90deg) scale(1.65)';
+  if(imgs[1])imgs[1].style.transform='translateX('+pan+'%) rotate(-90deg) scale(1.65)';
 
   c2.style.transform=scT(p,90);c2.style.zIndex=cZI(p,1);c2.style.opacity=gp(p)>=.75?0:1;
   c3.style.transform=scT(p,180);c3.style.zIndex=cZI(p,2);c3.style.opacity=gp(p)>=.75?0:1;
