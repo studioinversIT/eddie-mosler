@@ -18,7 +18,7 @@ body{background:#000;color:#f5f0e8;overflow-x:hidden;font-family:-apple-system,B
   --h1:7vw;--h2:9vw;--sbt:2.4vmin;--sbw:52vmin;
 }
 @media(max-width:1024px){:root{--cw:54vmin;--ch:80vmin;--cr:35vmin;--fb:52vmin}}
-@media(max-width:640px){:root{--cw:64vmin;--ch:94vmin;--cr:41vmin;--fb:60vmin}}
+@media(max-width:640px){:root{--cw:64vmin;--ch:94vmin;--cr:41vmin;--fb:60vmin;--hp:4vmin;--r-card:2vmin}}
 
 /* ── LOADER ── */
 #loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;overflow:hidden}
@@ -159,6 +159,39 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
 .ctap{max-width:26vw;font-size:2.2vmin;line-height:1.35;color:rgba(245,240,232,.7)}
 .ctabtn{margin-top:1.5vmin;display:inline-flex;border-radius:8px;background:var(--paper);padding:2.2vmin 4.6vmin;font-size:2.5vmin;color:var(--ink);text-decoration:none;pointer-events:auto;font-family:inherit}
 @media(max-width:640px){.ctahl{max-width:88vw}.ctap{max-width:80vw;font-size:3.4vmin}.hbtns{flex-direction:column;align-items:stretch}.hdiv,.htrust{display:none}}
+
+/* ── MOBILE OPTIMIZATIONS ── */
+@media(max-width:640px){
+  :root{--h1:10vw;--h2:12vw;--sbt:3.6vw;--sbw:82vw}
+  /* Hero card */
+  .hcont{padding:5vw 5vw 3vw}
+  .hbot{padding:5vw}
+  .hhl{font-size:9vw}
+  .hp2{font-size:clamp(13px,3.8vw,16px);max-width:100%}
+  .bg,.bs{font-size:clamp(14px,4vw,17px);padding:12px 22px}
+  .hbrowse{display:none}
+  /* Portfolio */
+  .pfc{width:82vw}
+  .pftitle{font-size:9vw}
+  .pftags{font-size:clamp(10px,3vw,13px)}
+  .pftags .sep{display:none}
+  /* Sphere text */
+  .sht{left:6vw;top:16vw}
+  .shb{right:6vw;bottom:10vw}
+  .sbody{left:6vw;bottom:6vw;font-size:clamp(12px,3.6vw,15px);max-width:86vw}
+  /* Side cards micro text */
+  .sfpill,.sfurl{font-size:clamp(10px,3vw,13px)}
+  .sfhl{font-size:clamp(18px,6vmin,28px)}
+  .spl,.sst{font-size:clamp(10px,3vw,13px)}
+  .spm,.ssub,.stitle{font-size:clamp(14px,5vmin,20px)}
+  /* CTA buttons */
+  .carcta a{font-size:clamp(13px,3.8vw,15px);padding:3vmin 6vmin}
+  .ctabtn{font-size:clamp(14px,4vw,16px);padding:3.5vmin 7vmin}
+  /* Gallery */
+  #galeria{padding:10vw 4vw 14vw}
+  .gal-grid{columns:1 100%}
+  .gal-item{margin-bottom:3vw}
+}
 
 .ls{display:inline-block;white-space:pre}
 
