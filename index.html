@@ -374,7 +374,7 @@ nav{pointer-events:auto;display:flex;align-items:stretch;gap:1px;border-radius:8
     </div><!-- /scene -->
 
     <!-- SPHERE TEXT LAYER — outside scaled container, direct viewport coords -->
-    <div style="position:absolute;inset:0;z-index:10;pointer-events:none;overflow:hidden">
+    <div id="sphtxtlayer" style="position:absolute;inset:0;z-index:10;pointer-events:none;overflow:hidden;opacity:0">
       <h2 class="sht" id="sht"></h2>
       <div class="shb" id="shb"></div>
       <div class="sbody" id="sbody">
@@ -826,7 +826,7 @@ function runLoader(onDone){
 var c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3'),c4=document.getElementById('c4');
 var rig=document.getElementById('rig'),car=document.getElementById('car');
 var hcont=document.getElementById('hcont'),hbot=document.getElementById('hbot'),hbr=document.getElementById('hbr'),hsl=document.getElementById('hsl');
-var bsc=document.getElementById('bsc'),ss2El=document.getElementById('ss2'),sle=document.getElementById('sle'),sbody=document.getElementById('sbody');
+var bsc=document.getElementById('bsc'),ss2El=document.getElementById('ss2'),sle=document.getElementById('sle'),sbody=document.getElementById('sbody'),sphtxtlayer=document.getElementById('sphtxtlayer');
 var carcta=document.getElementById('carcta'),pfEl=document.getElementById('pf'),pft=document.getElementById('pft');
 var tbl=document.getElementById('tbl'),ctabl=document.getElementById('ctabl'),tfr=document.getElementById('tfr');
 var auroraEl=document.getElementById('aurora'),hdr=document.getElementById('hdr'),bd=document.getElementById('bd'),mqw=document.getElementById('mqw');
@@ -881,6 +881,7 @@ function frame(){
 
   allBlk.forEach(function(o){var s=blkSt(p,o.li,o.total);o.span.style.transform=s.tr;o.span.style.filter=s.fl;o.span.style.opacity=s.op});
   var sbr=spBR(p);sbody.style.opacity=sbr;sbody.style.transform='translateY('+((1-sbr)*2.5)+'vmin)';
+  if(sphtxtlayer)sphtxtlayer.style.opacity=c4Op(p);
 
   var ccr=carCtaR(p);carcta.style.opacity=ccr;carcta.style.transform='translateY('+((1-ccr)*2.5)+'vh)';
   auroraEl.style.opacity=auroO(p);
